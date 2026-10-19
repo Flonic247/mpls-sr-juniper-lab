@@ -1,0 +1,5 @@
+# R2 - stage 04-segment-routing
+set protocols isis source-packet-routing srgb start-label 800000
+set protocols isis source-packet-routing srgb index-range 20000
+set protocols isis source-packet-routing node-segment ipv4-index 2
+set protocols isis source-packet-routing explicit-null

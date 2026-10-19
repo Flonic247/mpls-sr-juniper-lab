@@ -1,0 +1,27 @@
+root@Router4> show bfd se
+                         ^
+'se' is ambiguous.
+Possible completions:
+  seamless             Show seamless BFD session info
+  session              Show all BFD sessions
+root@Router4> show bfd session
+                                                  Detect   Transmit
+Address                  State     Interface      Time     Interval  Multiplier
+10.10.4.1                Up        ge-0/0/2.0     3.000     1.000        3
+10.10.6.2                Up        ge-0/0/1.0     3.000     1.000        3
+10.10.8.1                Up        ge-0/0/0.0     3.000     1.000        3
+
+3 sessions, 3 clients
+Cumulative transmit rate 3.0 pps, cumulative receive rate 3.0 pps
+
+root@Router4> show mpls interface
+Interface        State       Administrative groups (x: extended)
+ge-0/0/0.0       Up         <none>
+ge-0/0/1.0       Up         <none>
+ge-0/0/2.0       Up         <none>
+
+root@Router4> show isis adjacency
+Interface             System         L State         Hold (secs) SNPA
+ge-0/0/0.0            Router3        2  Up                    24
+ge-0/0/1.0            ROuter6        2  Up                    26
+ge-0/0/2.0            Router2        2  Up                    24

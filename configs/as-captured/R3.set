@@ -1,0 +1,61 @@
+# R3 - as captured from the lab (Junos 25.2R1.9), sanitised for publication.
+# Removed: root password hash, VM-specific DHCP vendor-id values (see configs/SANITIZATION.md).
+# Set root authentication yourself before committing, e.g.: set system root-authentication plain-text-password
+# Lines starting with '#' are comments; strip them with: grep -v '^#' if your loader rejects them.
+set version 25.2R1.9
+set system host-name Router3
+set system syslog file interactive-commands interactive-commands any
+set system syslog file messages any notice
+set system syslog file messages authorization info
+set system processes dhcp-service traceoptions file dhcp_logfile
+set system processes dhcp-service traceoptions file size 10m
+set system processes dhcp-service traceoptions level all
+set system processes dhcp-service traceoptions flag packet
+set chassis network-services enhanced-ip
+set interfaces ge-0/0/0 description " Connection to Router4"
+set interfaces ge-0/0/0 unit 0 family inet address 10.10.8.1/30
+set interfaces ge-0/0/0 unit 0 family iso
+set interfaces ge-0/0/0 unit 0 family mpls
+set interfaces ge-0/0/1 description "Connection to Router5"
+set interfaces ge-0/0/1 unit 0 family inet address 10.10.5.1/30
+set interfaces ge-0/0/1 unit 0 family iso
+set interfaces ge-0/0/1 unit 0 family mpls
+set interfaces ge-0/0/2 description " COnnection to Router1"
+set interfaces ge-0/0/2 unit 0 family inet address 10.10.3.2/30
+set interfaces ge-0/0/2 unit 0 family iso
+set interfaces ge-0/0/2 unit 0 family mpls
+set interfaces fxp0 unit 0 family inet dhcp
+set interfaces fxp0 unit 0 family inet6 dhcpv6-client client-type stateful
+set interfaces fxp0 unit 0 family inet6 dhcpv6-client client-ia-type ia-na
+set interfaces fxp0 unit 0 family inet6 dhcpv6-client client-identifier duid-type duid-ll
+set interfaces lo0 unit 0 family inet address 10.0.0.3/32
+set interfaces lo0 unit 0 family iso address 49.0001.0100.0000.0003.00
+set routing-options autonomous-system 65000
+set protocols router-advertisement interface fxp0.0 managed-configuration
+set protocols isis interface ge-0/0/0.0 level 1 disable
+set protocols isis interface ge-0/0/0.0 level 2 post-convergence-lfa
+set protocols isis interface ge-0/0/0.0 point-to-point
+set protocols isis interface ge-0/0/0.0 bfd-liveness-detection minimum-interval 1000
+set protocols isis interface ge-0/0/0.0 bfd-liveness-detection multiplier 3
+set protocols isis interface ge-0/0/1.0 level 1 disable
+set protocols isis interface ge-0/0/1.0 level 2 post-convergence-lfa
+set protocols isis interface ge-0/0/1.0 point-to-point
+set protocols isis interface ge-0/0/1.0 bfd-liveness-detection minimum-interval 1000
+set protocols isis interface ge-0/0/1.0 bfd-liveness-detection multiplier 3
+set protocols isis interface ge-0/0/2.0 level 1 disable
+set protocols isis interface ge-0/0/2.0 level 2 post-convergence-lfa
+set protocols isis interface ge-0/0/2.0 point-to-point
+set protocols isis interface ge-0/0/2.0 bfd-liveness-detection minimum-interval 1000
+set protocols isis interface ge-0/0/2.0 bfd-liveness-detection multiplier 3
+set protocols isis interface lo0.0 level 1 disable
+set protocols isis interface lo0.0 passive
+set protocols isis source-packet-routing srgb start-label 800000
+set protocols isis source-packet-routing srgb index-range 20000
+set protocols isis source-packet-routing node-segment ipv4-index 3
+set protocols isis source-packet-routing explicit-null
+set protocols isis level 2 wide-metrics-only
+set protocols isis backup-spf-options use-post-convergence-lfa
+set protocols mpls icmp-tunneling
+set protocols mpls interface ge-0/0/0.0
+set protocols mpls interface ge-0/0/1.0
+set protocols mpls interface ge-0/0/2.0

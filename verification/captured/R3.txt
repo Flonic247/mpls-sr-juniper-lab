@@ -1,0 +1,26 @@
+root@Router3> show bgp summary
+BGP is not running
+
+root@Router3> show bfd session
+                                                  Detect   Transmit
+Address                  State     Interface      Time     Interval  Multiplier
+10.10.3.1                Up        ge-0/0/2.0     3.000     1.000        3
+10.10.5.2                Up        ge-0/0/1.0     3.000     1.000        3
+10.10.8.2                Up        ge-0/0/0.0     3.000     1.000        3
+
+3 sessions, 3 clients
+Cumulative transmit rate 3.0 pps, cumulative receive rate 3.0 pps
+
+root@Router3> show mpls interface
+Interface        State       Administrative groups (x: extended)
+ge-0/0/0.0       Up         <none>
+ge-0/0/1.0       Up         <none>
+ge-0/0/2.0       Up         <none>
+
+root@Router3>
+
+root@Router3> show isis adjacency
+Interface             System         L State         Hold (secs) SNPA
+ge-0/0/0.0            Router4        2  Up                    25
+ge-0/0/1.0            Router5        2  Up                    26
+ge-0/0/2.0            Router1        2  Up                    22

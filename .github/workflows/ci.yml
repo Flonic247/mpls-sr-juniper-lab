@@ -1,0 +1,17 @@
+name: lab-checks
+on: [push, pull_request]
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Configuration consistency audit (reports; known documented ERRORs do not fail the build)
+        run: python3 tools/audit.py --no-fail
+      - name: Fail if secrets reappear in as-captured configs
+        run: |
+          ! grep -rn "encrypted-password\|plain-text-password" configs/as-captured
+      - name: Markdown relative links
+        run: python3 tools/check_links.py

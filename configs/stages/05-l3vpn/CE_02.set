@@ -1,0 +1,8 @@
+# CE_02 - stage 05-l3vpn
+set policy-options policy-statement EXP_o_Router6 term 1 from route-filter 203.0.113.0/24 exact
+set policy-options policy-statement EXP_o_Router6 term 1 then accept
+set protocols bgp group TO_Router1 type external
+set protocols bgp group TO_Router1 export EXP_o_Router6
+set protocols bgp group TO_Router1 peer-as 65000
+set protocols bgp group TO_Router1 local-as 65100
+set protocols bgp group TO_Router1 neighbor 10.10.9.2

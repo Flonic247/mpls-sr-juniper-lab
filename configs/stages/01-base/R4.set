@@ -1,0 +1,24 @@
+# R4 - stage 01-base
+set version 25.2R1.9
+set system host-name Router4
+set system syslog file interactive-commands interactive-commands any
+set system syslog file messages any notice
+set system syslog file messages authorization info
+set system processes dhcp-service traceoptions file dhcp_logfile
+set system processes dhcp-service traceoptions file size 10m
+set system processes dhcp-service traceoptions level all
+set system processes dhcp-service traceoptions flag packet
+set chassis network-services enhanced-ip
+set interfaces ge-0/0/0 description " Connecion to Router3"
+set interfaces ge-0/0/0 unit 0 family inet address 10.10.8.2/30
+set interfaces ge-0/0/1 description "Connection to Router6"
+set interfaces ge-0/0/1 unit 0 family inet address 10.10.6.1/30
+set interfaces ge-0/0/2 description "COneection to Router2"
+set interfaces ge-0/0/2 unit 0 family inet address 10.10.4.2/30
+set interfaces fxp0 unit 0 family inet dhcp
+set interfaces fxp0 unit 0 family inet6 dhcpv6-client client-type stateful
+set interfaces fxp0 unit 0 family inet6 dhcpv6-client client-ia-type ia-na
+set interfaces fxp0 unit 0 family inet6 dhcpv6-client client-identifier duid-type duid-ll
+set interfaces lo0 unit 0 family inet address 10.0.0.4/32
+set routing-options autonomous-system 65000
+set protocols router-advertisement interface fxp0.0 managed-configuration

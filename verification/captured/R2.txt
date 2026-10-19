@@ -1,0 +1,130 @@
+[edit]
+root@Router2# run show bfd session
+                                                  Detect   Transmit
+Address                  State     Interface      Time     Interval  Multiplier
+10.10.2.1                Up        ge-0/0/0.0     3.000     1.000        3
+10.10.4.2                Up        ge-0/0/1.0     3.000     1.000        3
+
+2 sessions, 2 clients
+Cumulative transmit rate 2.0 pps, cumulative receive rate 2.0 pps
+
+[edit]
+root@Router2# show mpl
+                   ^
+syntax error.
+root@Router2# run show mpls interface
+Interface        State       Administrative groups (x: extended)
+ge-0/0/0.0       Up         <none>
+ge-0/0/1.0       Up         <none>
+
+[edit]
+root@Router2# show isis
+                   ^
+syntax error.
+root@Router2# run show isis adjacency
+Interface             System         L State         Hold (secs) SNPA
+ge-0/0/0.0            Router1        2  Up                    18
+ge-0/0/1.0            Router4        2  Up                    23
+
+[edit]
+root@Router2#
+
+[edit]
+root@Router2# show route
+                   ^
+syntax error.
+root@Router2# run show route pro
+                                ^
+'pro' is ambiguous.
+Possible completions:
+  <destination>        IP address and optional prefix length of destination
+  programmed           Show API-programmed routes
+  protocol             Name of protocol that is source for entries
+root@Router2# run show route protocol isis
+
+inet.0: 15 destinations, 15 routes (15 active, 0 holddown, 0 hidden)
++ = Active Route, - = Last Active, * = Both
+
+10.0.0.1/32        *[IS-IS/18] 23:40:16, metric 10
+                    >  to 10.10.2.1 via ge-0/0/0.0
+10.0.0.3/32        *[IS-IS/18] 23:40:16, metric 20
+                       to 10.10.2.1 via ge-0/0/0.0
+                    >  to 10.10.4.2 via ge-0/0/1.0
+10.0.0.4/32        *[IS-IS/18] 23:40:16, metric 10
+                    >  to 10.10.4.2 via ge-0/0/1.0
+10.0.0.5/32        *[IS-IS/18] 23:40:16, metric 30
+                       to 10.10.2.1 via ge-0/0/0.0
+                    >  to 10.10.4.2 via ge-0/0/1.0
+10.0.0.6/32        *[IS-IS/18] 23:40:16, metric 20
+                    >  to 10.10.4.2 via ge-0/0/1.0
+10.10.3.0/30       *[IS-IS/18] 23:40:16, metric 20
+                    >  to 10.10.2.1 via ge-0/0/0.0
+10.10.5.0/30       *[IS-IS/18] 23:40:16, metric 30
+                    >  to 10.10.2.1 via ge-0/0/0.0
+                       to 10.10.4.2 via ge-0/0/1.0
+10.10.6.0/30       *[IS-IS/18] 23:40:16, metric 20
+                    >  to 10.10.4.2 via ge-0/0/1.0
+10.10.7.0/30       *[IS-IS/18] 23:40:16, metric 30
+                    >  to 10.10.4.2 via ge-0/0/1.0
+10.10.8.0/30       *[IS-IS/18] 23:40:16, metric 20
+                    >  to 10.10.4.2 via ge-0/0/1.0
+
+inet.3: 5 destinations, 5 routes (5 active, 0 holddown, 0 hidden)
++ = Active Route, - = Last Active, * = Both
+
+10.0.0.1/32        *[L-ISIS/14] 23:40:16, metric 10
+                    >  to 10.10.2.1 via ge-0/0/0.0, Push 0
+                       to 10.10.4.2 via ge-0/0/1.0, Push 800001, Push 800003(top)
+10.0.0.3/32        *[L-ISIS/14] 23:40:39, metric 20
+                       to 10.10.2.1 via ge-0/0/0.0, Push 800003
+                    >  to 10.10.4.2 via ge-0/0/1.0, Push 800003
+10.0.0.4/32        *[L-ISIS/14] 23:40:16, metric 10
+                    >  to 10.10.4.2 via ge-0/0/1.0, Push 0
+                       to 10.10.2.1 via ge-0/0/0.0, Push 800004, Push 800003(top)
+10.0.0.5/32        *[L-ISIS/14] 23:40:39, metric 30
+                       to 10.10.2.1 via ge-0/0/0.0, Push 800005
+                    >  to 10.10.4.2 via ge-0/0/1.0, Push 800005
+10.0.0.6/32        *[L-ISIS/14] 23:40:16, metric 20
+                    >  to 10.10.4.2 via ge-0/0/1.0, Push 800006
+                       to 10.10.2.1 via ge-0/0/0.0, Push 800006, Push 800003(top)
+
+iso.0: 1 destinations, 1 routes (1 active, 0 holddown, 0 hidden)
+
+mpls.0: 17 destinations, 17 routes (17 active, 0 holddown, 0 hidden)
++ = Active Route, - = Last Active, * = Both
+
+16                 *[L-ISIS/14] 23:40:16, metric 0
+                    >  to 10.10.4.2 via ge-0/0/1.0, Pop
+                       to 10.10.2.1 via ge-0/0/0.0, Swap 800004, Push 800003(top)
+16(S=0)            *[L-ISIS/14] 23:40:16, metric 0
+                    >  to 10.10.4.2 via ge-0/0/1.0, Pop
+                       to 10.10.2.1 via ge-0/0/0.0, Swap 800004, Push 800003(top)
+17                 *[L-ISIS/14] 23:40:16, metric 0
+                    >  to 10.10.2.1 via ge-0/0/0.0, Pop
+                       to 10.10.4.2 via ge-0/0/1.0, Swap 800001, Push 800003(top)
+17(S=0)            *[L-ISIS/14] 23:40:16, metric 0
+                    >  to 10.10.2.1 via ge-0/0/0.0, Pop
+                       to 10.10.4.2 via ge-0/0/1.0, Swap 800001, Push 800003(top)
+800001             *[L-ISIS/14] 23:40:16, metric 10
+                    >  to 10.10.2.1 via ge-0/0/0.0, Swap 0
+                       to 10.10.4.2 via ge-0/0/1.0, Swap 800001, Push 800003(top)
+800001(S=0)        *[L-ISIS/14] 23:40:16, metric 10
+                    >  to 10.10.2.1 via ge-0/0/0.0, Pop
+                       to 10.10.4.2 via ge-0/0/1.0, Swap 800001, Push 800003(top)
+800003             *[L-ISIS/14] 23:40:39, metric 20
+                    >  to 10.10.2.1 via ge-0/0/0.0, Swap 800003
+                       to 10.10.4.2 via ge-0/0/1.0, Swap 800003
+800004             *[L-ISIS/14] 23:40:16, metric 10
+                    >  to 10.10.4.2 via ge-0/0/1.0, Swap 0
+                       to 10.10.2.1 via ge-0/0/0.0, Swap 800004, Push 800003(top)
+800004(S=0)        *[L-ISIS/14] 23:40:16, metric 10
+                    >  to 10.10.4.2 via ge-0/0/1.0, Pop
+                       to 10.10.2.1 via ge-0/0/0.0, Swap 800004, Push 800003(top)
+800005             *[L-ISIS/14] 23:40:39, metric 30
+                    >  to 10.10.2.1 via ge-0/0/0.0, Swap 800005
+                       to 10.10.4.2 via ge-0/0/1.0, Swap 800005
+800006             *[L-ISIS/14] 23:40:16, metric 20
+                    >  to 10.10.4.2 via ge-0/0/1.0, Swap 800006
+                       to 10.10.2.1 via ge-0/0/0.0, Swap 800006, Push 800003(top)
+
+inet6.0: 2 destinations, 2 routes (2 active, 0 holddown, 0 hidden)

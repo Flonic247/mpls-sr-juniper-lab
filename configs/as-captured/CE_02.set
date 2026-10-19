@@ -1,0 +1,29 @@
+# CE_02 - as captured from the lab (Junos 25.2R1.9), sanitised for publication.
+# Removed: root password hash, VM-specific DHCP vendor-id values (see configs/SANITIZATION.md).
+# Set root authentication yourself before committing, e.g.: set system root-authentication plain-text-password
+# Lines starting with '#' are comments; strip them with: grep -v '^#' if your loader rejects them.
+set version 25.2R1.9
+set system host-name CE_02-Router
+set system syslog file interactive-commands interactive-commands any
+set system syslog file messages any notice
+set system syslog file messages authorization info
+set system processes dhcp-service traceoptions file dhcp_logfile
+set system processes dhcp-service traceoptions file size 10m
+set system processes dhcp-service traceoptions level all
+set system processes dhcp-service traceoptions flag packet
+set interfaces ge-0/0/0 description "Connection to Router6_PE"
+set interfaces ge-0/0/0 unit 0 family inet address 10.10.9.1/30
+set interfaces ge-0/0/1 unit 0 family inet address 203.0.113.1/24
+set interfaces fxp0 unit 0 family inet dhcp
+set interfaces fxp0 unit 0 family inet6 dhcpv6-client client-type stateful
+set interfaces fxp0 unit 0 family inet6 dhcpv6-client client-ia-type ia-na
+set interfaces fxp0 unit 0 family inet6 dhcpv6-client client-identifier duid-type duid-ll
+set interfaces lo0 unit 0 family inet address 192.168.2.1/32
+set policy-options policy-statement EXP_o_Router6 term 1 from route-filter 203.0.113.0/24 exact
+set policy-options policy-statement EXP_o_Router6 term 1 then accept
+set protocols router-advertisement interface fxp0.0 managed-configuration
+set protocols bgp group TO_Router1 type external
+set protocols bgp group TO_Router1 export EXP_o_Router6
+set protocols bgp group TO_Router1 peer-as 65000
+set protocols bgp group TO_Router1 local-as 65100
+set protocols bgp group TO_Router1 neighbor 10.10.9.2

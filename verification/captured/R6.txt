@@ -1,0 +1,140 @@
+root@ROuter6> show bfd session
+                                                  Detect   Transmit
+Address                  State     Interface      Time     Interval  Multiplier
+10.10.6.1                Up        ge-0/0/2.0     3.000     1.000        3
+10.10.7.1                Up        ge-0/0/0.0     3.000     1.000        3
+
+2 sessions, 2 clients
+Cumulative transmit rate 2.0 pps, cumulative receive rate 2.0 pps
+
+root@ROuter6>
+
+root@ROuter6> show mpls interface
+Interface        State       Administrative groups (x: extended)
+ge-0/0/0.0       Up         <none>
+ge-0/0/2.0       Up         <none>
+
+root@ROuter6>
+
+root@ROuter6>
+
+root@ROuter6> show isis adjacency
+Interface             System         L State         Hold (secs) SNPA
+ge-0/0/0.0            Router5        2  Up                    22
+ge-0/0/2.0            Router4        2  Up                    26
+
+root@ROuter6>
+
+root@ROuter6> show route protocol isis
+
+inet.0: 15 destinations, 15 routes (15 active, 0 holddown, 0 hidden)
++ = Active Route, - = Last Active, * = Both
+
+10.0.0.1/32        *[IS-IS/18] 1d 00:33:33, metric 30
+                       to 10.10.7.1 via ge-0/0/0.0
+                    >  to 10.10.6.1 via ge-0/0/2.0
+10.0.0.2/32        *[IS-IS/18] 1d 00:33:33, metric 20
+                    >  to 10.10.6.1 via ge-0/0/2.0
+10.0.0.3/32        *[IS-IS/18] 1d 00:33:33, metric 20
+                       to 10.10.7.1 via ge-0/0/0.0
+                    >  to 10.10.6.1 via ge-0/0/2.0
+10.0.0.4/32        *[IS-IS/18] 1d 00:33:44, metric 10
+                    >  to 10.10.6.1 via ge-0/0/2.0
+10.0.0.5/32        *[IS-IS/18] 1d 00:33:43, metric 10
+                    >  to 10.10.7.1 via ge-0/0/0.0
+10.10.2.0/30       *[IS-IS/18] 23:39:16, metric 30
+                    >  to 10.10.6.1 via ge-0/0/2.0
+10.10.3.0/30       *[IS-IS/18] 1d 00:33:33, metric 30
+                    >  to 10.10.7.1 via ge-0/0/0.0
+                       to 10.10.6.1 via ge-0/0/2.0
+10.10.4.0/30       *[IS-IS/18] 1d 00:33:44, metric 20
+                    >  to 10.10.6.1 via ge-0/0/2.0
+10.10.5.0/30       *[IS-IS/18] 1d 00:33:43, metric 20
+                    >  to 10.10.7.1 via ge-0/0/0.0
+10.10.8.0/30       *[IS-IS/18] 1d 00:33:44, metric 20
+                    >  to 10.10.6.1 via ge-0/0/2.0
+
+inet.3: 5 destinations, 5 routes (5 active, 0 holddown, 0 hidden)
++ = Active Route, - = Last Active, * = Both
+
+10.0.0.1/32        *[L-ISIS/14] 1d 00:33:33, metric 30
+                       to 10.10.6.1 via ge-0/0/2.0, Push 800001
+                    >  to 10.10.7.1 via ge-0/0/0.0, Push 800001
+10.0.0.2/32        *[L-ISIS/14] 23:39:09, metric 20
+                    >  to 10.10.6.1 via ge-0/0/2.0, Push 800002
+                       to 10.10.7.1 via ge-0/0/0.0, Push 800002, Push 800001(top)
+10.0.0.3/32        *[L-ISIS/14] 1d 00:33:33, metric 20
+                       to 10.10.6.1 via ge-0/0/2.0, Push 800003
+                    >  to 10.10.7.1 via ge-0/0/0.0, Push 800003
+10.0.0.4/32        *[L-ISIS/14] 1d 00:33:33, metric 10
+                    >  to 10.10.6.1 via ge-0/0/2.0, Push 0
+                       to 10.10.7.1 via ge-0/0/0.0, Push 800004, Push 800003(top)
+10.0.0.5/32        *[L-ISIS/14] 1d 00:33:33, metric 10
+                    >  to 10.10.7.1 via ge-0/0/0.0, Push 0
+                       to 10.10.6.1 via ge-0/0/2.0, Push 800005, Push 800003(top)
+
+CUSTOMER_A.inet.0: 5 destinations, 5 routes (5 active, 0 holddown, 0 hidden)
+
+iso.0: 1 destinations, 1 routes (1 active, 0 holddown, 0 hidden)
+
+mpls.0: 18 destinations, 18 routes (18 active, 0 holddown, 0 hidden)
++ = Active Route, - = Last Active, * = Both
+
+17                 *[L-ISIS/14] 1d 00:33:33, metric 0
+                    >  to 10.10.6.1 via ge-0/0/2.0, Pop
+                       to 10.10.7.1 via ge-0/0/0.0, Swap 800004, Push 800003(top)
+17(S=0)            *[L-ISIS/14] 1d 00:33:33, metric 0
+                    >  to 10.10.6.1 via ge-0/0/2.0, Pop
+                       to 10.10.7.1 via ge-0/0/0.0, Swap 800004, Push 800003(top)
+18                 *[L-ISIS/14] 1d 00:33:33, metric 0
+                    >  to 10.10.7.1 via ge-0/0/0.0, Pop
+                       to 10.10.6.1 via ge-0/0/2.0, Swap 800005, Push 800003(top)
+18(S=0)            *[L-ISIS/14] 1d 00:33:33, metric 0
+                    >  to 10.10.7.1 via ge-0/0/0.0, Pop
+                       to 10.10.6.1 via ge-0/0/2.0, Swap 800005, Push 800003(top)
+800001             *[L-ISIS/14] 1d 00:33:33, metric 30
+                    >  to 10.10.6.1 via ge-0/0/2.0, Swap 800001
+                       to 10.10.7.1 via ge-0/0/0.0, Swap 800001
+800002             *[L-ISIS/14] 23:39:09, metric 20
+                    >  to 10.10.6.1 via ge-0/0/2.0, Swap 800002
+                       to 10.10.7.1 via ge-0/0/0.0, Swap 800002, Push 800001(top)
+800003             *[L-ISIS/14] 1d 00:33:33, metric 20
+                    >  to 10.10.6.1 via ge-0/0/2.0, Swap 800003
+                       to 10.10.7.1 via ge-0/0/0.0, Swap 800003
+800004             *[L-ISIS/14] 1d 00:33:33, metric 10
+                    >  to 10.10.6.1 via ge-0/0/2.0, Swap 0
+                       to 10.10.7.1 via ge-0/0/0.0, Swap 800004, Push 800003(top)
+800004(S=0)        *[L-ISIS/14] 1d 00:33:33, metric 10
+                    >  to 10.10.6.1 via ge-0/0/2.0, Pop
+                       to 10.10.7.1 via ge-0/0/0.0, Swap 800004, Push 800003(top)
+800005             *[L-ISIS/14] 1d 00:33:33, metric 10
+                    >  to 10.10.7.1 via ge-0/0/0.0, Swap 0
+                       to 10.10.6.1 via ge-0/0/2.0, Swap 800005, Push 800003(top)
+800005(S=0)        *[L-ISIS/14] 1d 00:33:33, metric 10
+                    >  to 10.10.7.1 via ge-0/0/0.0, Pop
+                       to 10.10.6.1 via ge-0/0/2.0, Swap 800005, Push 800003(top)
+
+bgp.l3vpn.0: 2 destinations, 2 routes (2 active, 0 holddown, 0 hidden)
+
+inet6.0: 2 destinations, 2 routes (2 active, 0 holddown, 0 hidden)
+
+root@ROuter6>
+
+root@ROuter6> show route 10.64.99.0/24
+
+CUSTOMER_A.inet.0: 5 destinations, 5 routes (5 active, 0 holddown, 0 hidden)
++ = Active Route, - = Last Active, * = Both
+
+10.64.99.0/24      *[BGP/170] 23:57:46, localpref 100, from 10.0.0.1
+                      AS path: 65100 I, validation-state: unverified
+                       to 10.10.6.1 via ge-0/0/2.0, Push 16, Push 800001(top)
+                    >  to 10.10.7.1 via ge-0/0/0.0, Push 16, Push 800001(top)
+
+bgp.l3vpn.0: 2 destinations, 2 routes (2 active, 0 holddown, 0 hidden)
++ = Active Route, - = Last Active, * = Both
+
+10.0.0.1:65000:10.64.99.0/24
+                   *[BGP/170] 23:57:46, localpref 100, from 10.0.0.1
+                      AS path: 65100 I, validation-state: unverified
+                    >  to 10.10.6.1 via ge-0/0/2.0, Push 16, Push 800001(top)
+                       to 10.10.7.1 via ge-0/0/0.0, Push 16, Push 800001(top)

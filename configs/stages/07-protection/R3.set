@@ -1,0 +1,11 @@
+# R3 - stage 07-protection
+set protocols isis interface ge-0/0/0.0 level 2 post-convergence-lfa
+set protocols isis interface ge-0/0/0.0 bfd-liveness-detection minimum-interval 1000
+set protocols isis interface ge-0/0/0.0 bfd-liveness-detection multiplier 3
+set protocols isis interface ge-0/0/1.0 level 2 post-convergence-lfa
+set protocols isis interface ge-0/0/1.0 bfd-liveness-detection minimum-interval 1000
+set protocols isis interface ge-0/0/1.0 bfd-liveness-detection multiplier 3
+set protocols isis interface ge-0/0/2.0 level 2 post-convergence-lfa
+set protocols isis interface ge-0/0/2.0 bfd-liveness-detection minimum-interval 1000
+set protocols isis interface ge-0/0/2.0 bfd-liveness-detection multiplier 3
+set protocols isis backup-spf-options use-post-convergence-lfa

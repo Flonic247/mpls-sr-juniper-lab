@@ -1,0 +1,90 @@
+# R1 - as captured from the lab (Junos 25.2R1.9), sanitised for publication.
+# Removed: root password hash, VM-specific DHCP vendor-id values (see configs/SANITIZATION.md).
+# Release 1.1.0: author applied two changes on this router (NET corrected, IS-IS metric 100 on ge-0/0/0.0). Original: configs/history/.
+# Set root authentication yourself before committing, e.g.: set system root-authentication plain-text-password
+# Lines starting with '#' are comments; strip them with: grep -v '^#' if your loader rejects them.
+set version 25.2R1.9
+set system host-name Router1
+set system syslog file interactive-commands interactive-commands any
+set system syslog file messages any notice
+set system syslog file messages authorization info
+set system processes dhcp-service traceoptions file dhcp_logfile
+set system processes dhcp-service traceoptions file size 10m
+set system processes dhcp-service traceoptions level all
+set system processes dhcp-service traceoptions flag packet
+set chassis network-services enhanced-ip
+set interfaces ge-0/0/0 description "Connection to Router2"
+set interfaces ge-0/0/0 unit 0 family inet address 10.10.2.1/30
+set interfaces ge-0/0/0 unit 0 family iso
+set interfaces ge-0/0/0 unit 0 family mpls
+set interfaces ge-0/0/1 description " Connection to Router3"
+set interfaces ge-0/0/1 unit 0 family inet address 10.10.3.1/30
+set interfaces ge-0/0/1 unit 0 family iso
+set interfaces ge-0/0/1 unit 0 family mpls
+set interfaces ge-0/0/2 description "Connect to CE_01"
+set interfaces ge-0/0/2 unit 0 family inet address 10.10.1.2/30
+set interfaces fxp0 unit 0 family inet dhcp
+set interfaces fxp0 unit 0 family inet6 dhcpv6-client client-type stateful
+set interfaces fxp0 unit 0 family inet6 dhcpv6-client client-ia-type ia-na
+set interfaces fxp0 unit 0 family inet6 dhcpv6-client client-identifier duid-type duid-ll
+set interfaces lo0 unit 0 family inet address 10.0.0.1/32
+set interfaces lo0 unit 0 family iso address 49.0001.0100.0000.0001.00
+set policy-options policy-statement Customer_A_Export term 1 then community add RT_CE01
+set policy-options policy-statement Customer_A_Export term 1 then accept
+set policy-options policy-statement Cutomer_A_Import term 1 from protocol bgp
+set policy-options policy-statement Cutomer_A_Import term 1 from protocol direct
+set policy-options policy-statement Cutomer_A_Import term 1 from community RT_CE01
+set policy-options policy-statement Cutomer_A_Import term 1 then accept
+set policy-options community RT_CE01 members target:65000:1
+set routing-instances CUSTOMER_A instance-type vrf
+set routing-instances CUSTOMER_A protocols bgp group Customer_A type external
+set routing-instances CUSTOMER_A protocols bgp group Customer_A local-address 10.10.1.2
+set routing-instances CUSTOMER_A protocols bgp group Customer_A peer-as 65100
+set routing-instances CUSTOMER_A protocols bgp group Customer_A local-as 65000
+set routing-instances CUSTOMER_A protocols bgp group Customer_A as-override
+set routing-instances CUSTOMER_A protocols bgp group Customer_A neighbor 10.10.1.1
+set routing-instances CUSTOMER_A interface ge-0/0/2.0
+set routing-instances CUSTOMER_A route-distinguisher 10.0.0.1:65000
+set routing-instances CUSTOMER_A vrf-import Cutomer_A_Import
+set routing-instances CUSTOMER_A vrf-export Customer_A_Export
+set routing-instances CUSTOMER_A vrf-target target:65000:100
+set routing-instances CUSTOMER_A vrf-table-label
+set routing-options router-id 10.0.0.1
+set routing-options autonomous-system 65000
+set protocols router-advertisement interface fxp0.0 managed-configuration
+set protocols bgp group L3VPN type internal
+set protocols bgp group L3VPN local-address 10.0.0.1
+set protocols bgp group L3VPN family inet-vpn unicast
+set protocols bgp group L3VPN neighbor 10.0.0.6
+set protocols isis interface ge-0/0/0.0 level 1 disable
+set protocols isis interface ge-0/0/0.0 level 2 post-convergence-lfa
+set protocols isis interface ge-0/0/0.0 point-to-point
+set protocols isis interface ge-0/0/0.0 level 2 metric 100
+set protocols isis interface ge-0/0/0.0 bfd-liveness-detection minimum-interval 1000
+set protocols isis interface ge-0/0/0.0 bfd-liveness-detection multiplier 3
+set protocols isis interface ge-0/0/1.0 level 1 disable
+set protocols isis interface ge-0/0/1.0 level 2 post-convergence-lfa
+set protocols isis interface ge-0/0/1.0 point-to-point
+set protocols isis interface ge-0/0/1.0 bfd-liveness-detection minimum-interval 1000
+set protocols isis interface ge-0/0/1.0 bfd-liveness-detection multiplier 3
+set protocols isis interface lo0.0 level 1 disable
+set protocols isis interface lo0.0 passive
+set protocols isis source-packet-routing srgb start-label 800000
+set protocols isis source-packet-routing srgb index-range 20000
+set protocols isis source-packet-routing node-segment ipv4-index 1
+set protocols isis source-packet-routing explicit-null
+set protocols isis level 2 wide-metrics-only
+set protocols isis backup-spf-options use-post-convergence-lfa
+set protocols mpls interface ge-0/0/0.0
+set protocols mpls interface ge-0/0/1.0
+set protocols source-packet-routing segment-list SRTE_R1_R2_R4_R6 hope1 ip-address 10.10.2.2
+set protocols source-packet-routing segment-list SRTE_R1_R2_R4_R6 hope2 label 800004
+set protocols source-packet-routing segment-list SRTE_R1_R2_R4_R6 hope3 label 800006
+set protocols source-packet-routing segment-list SRTE_R1_R3_R5_R6 hope1 ip-address 10.10.3.2
+set protocols source-packet-routing segment-list SRTE_R1_R3_R5_R6 hope2 label 800005
+set protocols source-packet-routing segment-list SRTE_R1_R3_R5_R6 hope3 label 800006
+set protocols source-packet-routing source-routing-path R1_TO_R6_SRTE to 10.0.0.6
+set protocols source-packet-routing source-routing-path R1_TO_R6_SRTE sr-preference 100
+set protocols source-packet-routing source-routing-path R1_TO_R6_SRTE primary SRTE_R1_R2_R4_R6
+set protocols source-packet-routing source-routing-path R1_TO_R6_SRTE secondary SRTE_R1_R3_R5_R6
+set protocols source-packet-routing traffic-engineering database

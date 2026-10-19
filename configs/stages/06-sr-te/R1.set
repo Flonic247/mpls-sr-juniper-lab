@@ -1,0 +1,12 @@
+# R1 - stage 06-sr-te
+set protocols source-packet-routing segment-list SRTE_R1_R2_R4_R6 hope1 ip-address 10.10.2.2
+set protocols source-packet-routing segment-list SRTE_R1_R2_R4_R6 hope2 label 800004
+set protocols source-packet-routing segment-list SRTE_R1_R2_R4_R6 hope3 label 800006
+set protocols source-packet-routing segment-list SRTE_R1_R3_R5_R6 hope1 ip-address 10.10.3.2
+set protocols source-packet-routing segment-list SRTE_R1_R3_R5_R6 hope2 label 800005
+set protocols source-packet-routing segment-list SRTE_R1_R3_R5_R6 hope3 label 800006
+set protocols source-packet-routing source-routing-path R1_TO_R6_SRTE to 10.0.0.6
+set protocols source-packet-routing source-routing-path R1_TO_R6_SRTE sr-preference 100
+set protocols source-packet-routing source-routing-path R1_TO_R6_SRTE primary SRTE_R1_R2_R4_R6
+set protocols source-packet-routing source-routing-path R1_TO_R6_SRTE secondary SRTE_R1_R3_R5_R6
+set protocols source-packet-routing traffic-engineering database

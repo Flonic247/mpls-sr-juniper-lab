@@ -1,0 +1,19 @@
+VPCS> trace 203.0.113.10
+trace to 203.0.113.10, 8 hops max, press Ctrl+C to stop
+ 1   10.64.99.1   0.581 ms  0.467 ms  0.534 ms
+ 2   10.10.1.2   1.508 ms  1.297 ms  1.733 ms
+ 3   10.10.2.2   4.426 ms  4.002 ms  4.273 ms
+ 4   10.10.4.2   6.122 ms  5.246 ms  4.484 ms
+ 5   10.10.9.2   4.018 ms  4.924 ms  4.290 ms
+ 6   10.10.9.1   4.417 ms  4.651 ms  4.037 ms
+ 7   *203.0.113.10   6.763 ms (ICMP type:3, code:3, Destination port unreachable)
+
+VPCS> trace 10.64.99.10
+trace to 10.64.99.10, 8 hops max, press Ctrl+C to stop
+ 1   203.0.113.1   0.835 ms  0.623 ms  0.462 ms
+ 2   10.10.9.2   1.400 ms  1.435 ms  1.466 ms
+ 3   10.10.6.1   5.200 ms  4.517 ms  4.781 ms
+ 4   10.10.4.1   5.819 ms  5.673 ms  5.259 ms
+ 5   10.10.1.2   5.300 ms  4.953 ms  5.317 ms
+ 6   10.10.1.1   5.162 ms  5.374 ms  4.711 ms
+ 7   *10.64.99.10   5.105 ms (ICMP type:3, code:3, Destination port unreachable)

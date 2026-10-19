@@ -1,0 +1,916 @@
+@Router1> show route
+
+inet.0: 15 destinations, 15 routes (15 active, 0 holddown, 0 hidden)
++ = Active Route, - = Last Active, * = Both
+
+10.0.0.1/32        *[Direct/0] 23:30:44
+                    >  via lo0.0
+10.0.0.2/32        *[IS-IS/18] 22:34:27, metric 10
+                    >  to 10.10.2.2 via ge-0/0/0.0
+10.0.0.3/32        *[IS-IS/18] 23:29:28, metric 10
+                    >  to 10.10.3.2 via ge-0/0/1.0
+10.0.0.4/32        *[IS-IS/18] 22:34:27, metric 20
+                       to 10.10.2.2 via ge-0/0/0.0
+                    >  to 10.10.3.2 via ge-0/0/1.0
+10.0.0.5/32        *[IS-IS/18] 23:29:26, metric 20
+                    >  to 10.10.3.2 via ge-0/0/1.0
+10.0.0.6/32        *[IS-IS/18] 22:34:27, metric 30
+                       to 10.10.2.2 via ge-0/0/0.0
+                    >  to 10.10.3.2 via ge-0/0/1.0
+10.10.2.0/30       *[Direct/0] 23:30:23
+                    >  via ge-0/0/0.0
+10.10.2.1/32       *[Local/0] 23:30:23
+                       Local via ge-0/0/0.0
+10.10.3.0/30       *[Direct/0] 23:30:23
+                    >  via ge-0/0/1.0
+10.10.3.1/32       *[Local/0] 23:30:23
+                       Local via ge-0/0/1.0
+10.10.4.0/30       *[IS-IS/18] 22:34:27, metric 20
+                    >  to 10.10.2.2 via ge-0/0/0.0
+10.10.5.0/30       *[IS-IS/18] 23:29:28, metric 20
+                    >  to 10.10.3.2 via ge-0/0/1.0
+10.10.6.0/30       *[IS-IS/18] 22:34:27, metric 30
+                    >  to 10.10.2.2 via ge-0/0/0.0
+                       to 10.10.3.2 via ge-0/0/1.0
+10.10.7.0/30       *[IS-IS/18] 23:29:26, metric 30
+                    >  to 10.10.3.2 via ge-0/0/1.0
+10.10.8.0/30       *[IS-IS/18] 23:29:28, metric 20
+                    >  to 10.10.3.2 via ge-0/0/1.0
+
+inet.3: 5 destinations, 6 routes (5 active, 0 holddown, 0 hidden)
++ = Active Route, - = Last Active, * = Both
+
+10.0.0.2/32        *[L-ISIS/14] 22:34:27, metric 10
+                    >  to 10.10.2.2 via ge-0/0/0.0, Push 0
+                       to 10.10.3.2 via ge-0/0/1.0, Push 800002, Push 800004(top)
+10.0.0.3/32        *[L-ISIS/14] 22:34:27, metric 10
+                    >  to 10.10.3.2 via ge-0/0/1.0, Push 0
+                       to 10.10.2.2 via ge-0/0/0.0, Push 800003, Push 800004(top)
+10.0.0.4/32        *[L-ISIS/14] 22:34:27, metric 20
+                       to 10.10.2.2 via ge-0/0/0.0, Push 800004
+                    >  to 10.10.3.2 via ge-0/0/1.0, Push 800004
+10.0.0.5/32        *[L-ISIS/14] 22:34:27, metric 20
+                    >  to 10.10.3.2 via ge-0/0/1.0, Push 800005
+                       to 10.10.2.2 via ge-0/0/0.0, Push 800005, Push 800004(top)
+10.0.0.6/32        *[SPRING-TE/8] 23:29:02, metric 1, metric2 30
+                    >  to 10.10.2.2 via ge-0/0/0.0, Push 800006, Push 800004(top)
+                       to 10.10.3.2 via ge-0/0/1.0, Push 800006, Push 800005(top)
+                    [L-ISIS/14] 22:34:27, metric 30
+                       to 10.10.2.2 via ge-0/0/0.0, Push 800006
+                    >  to 10.10.3.2 via ge-0/0/1.0, Push 800006
+
+CUSTOMER_A.inet.0: 5 destinations, 5 routes (5 active, 0 holddown, 0 hidden)
++ = Active Route, - = Last Active, * = Both
+
+10.10.1.0/30       *[Direct/0] 23:01:44
+                    >  via ge-0/0/2.0
+10.10.1.2/32       *[Local/0] 23:01:44
+                       Local via ge-0/0/2.0
+10.10.9.0/30       *[BGP/170] 22:48:34, localpref 100, from 10.0.0.6
+                      AS path: I, validation-state: unverified
+                    >  to 10.10.2.2 via ge-0/0/0.0, Push 16, Push 800006, Push 800004(top)
+                       to 10.10.3.2 via ge-0/0/1.0, Push 16, Push 800006, Push 800005(top)
+10.64.99.0/24      *[BGP/170] 22:52:41, localpref 100
+                      AS path: 65100 I, validation-state: unverified
+                    >  to 10.10.1.1 via ge-0/0/2.0
+203.0.113.0/24     *[BGP/170] 22:40:18, localpref 100, from 10.0.0.6
+                      AS path: 65100 I, validation-state: unverified
+                    >  to 10.10.2.2 via ge-0/0/0.0, Push 16, Push 800006, Push 800004(top)
+                       to 10.10.3.2 via ge-0/0/1.0, Push 16, Push 800006, Push 800005(top)
+
+iso.0: 1 destinations, 1 routes (1 active, 0 holddown, 0 hidden)
++ = Active Route, - = Last Active, * = Both
+
+49.0001.0100.0001/56
+                   *[Direct/0] 23:30:44
+                    >  via lo0.0
+
+mpls.0: 18 destinations, 18 routes (18 active, 0 holddown, 0 hidden)
++ = Active Route, - = Last Active, * = Both
+
+0                  *[MPLS/0] 23:30:44, metric 1
+                       to table inet.0
+0(S=0)             *[MPLS/0] 23:30:44, metric 1
+                       to table mpls.0
+1                  *[MPLS/0] 23:30:44, metric 1
+                       Receive
+2                  *[MPLS/0] 23:30:44, metric 1
+                       to table inet6.0
+2(S=0)             *[MPLS/0] 23:30:44, metric 1
+                       to table mpls.0
+13                 *[MPLS/0] 23:30:44, metric 1
+                       Receive
+16                 *[VPN/0] 23:30:44
+                    >  via lsi.0 (CUSTOMER_A), Pop
+17                 *[L-ISIS/14] 22:34:27, metric 0
+                    >  to 10.10.3.2 via ge-0/0/1.0, Pop
+                       to 10.10.2.2 via ge-0/0/0.0, Swap 800003, Push 800004(top)
+17(S=0)            *[L-ISIS/14] 22:34:27, metric 0
+                    >  to 10.10.3.2 via ge-0/0/1.0, Pop
+                       to 10.10.2.2 via ge-0/0/0.0, Swap 800003, Push 800004(top)
+18                 *[L-ISIS/14] 22:34:27, metric 0
+                    >  to 10.10.2.2 via ge-0/0/0.0, Pop
+                       to 10.10.3.2 via ge-0/0/1.0, Swap 800002, Push 800004(top)
+18(S=0)            *[L-ISIS/14] 22:34:27, metric 0
+                    >  to 10.10.2.2 via ge-0/0/0.0, Pop
+                       to 10.10.3.2 via ge-0/0/1.0, Swap 800002, Push 800004(top)
+800002             *[L-ISIS/14] 22:34:27, metric 10
+                    >  to 10.10.2.2 via ge-0/0/0.0, Swap 0
+                       to 10.10.3.2 via ge-0/0/1.0, Swap 800002, Push 800004(top)
+800002(S=0)        *[L-ISIS/14] 22:34:27, metric 10
+                    >  to 10.10.2.2 via ge-0/0/0.0, Pop
+                       to 10.10.3.2 via ge-0/0/1.0, Swap 800002, Push 800004(top)
+800003             *[L-ISIS/14] 22:34:27, metric 10
+                    >  to 10.10.3.2 via ge-0/0/1.0, Swap 0
+                       to 10.10.2.2 via ge-0/0/0.0, Swap 800003, Push 800004(top)
+800003(S=0)        *[L-ISIS/14] 22:34:27, metric 10
+                    >  to 10.10.3.2 via ge-0/0/1.0, Pop
+                       to 10.10.2.2 via ge-0/0/0.0, Swap 800003, Push 800004(top)
+800004             *[L-ISIS/14] 22:34:27, metric 20
+                    >  to 10.10.2.2 via ge-0/0/0.0, Swap 800004
+                       to 10.10.3.2 via ge-0/0/1.0, Swap 800004
+800005             *[L-ISIS/14] 22:34:27, metric 20
+                    >  to 10.10.3.2 via ge-0/0/1.0, Swap 800005
+                       to 10.10.2.2 via ge-0/0/0.0, Swap 800005, Push 800004(top)
+800006             *[L-ISIS/14] 22:34:27, metric 30
+                    >  to 10.10.2.2 via ge-0/0/0.0, Swap 800006
+                       to 10.10.3.2 via ge-0/0/1.0, Swap 800006
+
+bgp.l3vpn.0: 2 destinations, 2 routes (2 active, 0 holddown, 0 hidden)
++ = Active Route, - = Last Active, * = Both
+
+10.0.0.6:65000:10.10.9.0/30
+                   *[BGP/170] 22:48:34, localpref 100, from 10.0.0.6
+                      AS path: I, validation-state: unverified
+                    >  to 10.10.2.2 via ge-0/0/0.0, Push 16, Push 800006, Push 800004(top)
+                       to 10.10.3.2 via ge-0/0/1.0, Push 16, Push 800006, Push 800005(top)
+10.0.0.6:65000:203.0.113.0/24
+                   *[BGP/170] 22:40:18, localpref 100, from 10.0.0.6
+                      AS path: 65100 I, validation-state: unverified
+                    >  to 10.10.2.2 via ge-0/0/0.0, Push 16, Push 800006, Push 800004(top)
+                       to 10.10.3.2 via ge-0/0/1.0, Push 16, Push 800006, Push 800005(top)
+
+inet6.0: 2 destinations, 2 routes (2 active, 0 holddown, 0 hidden)
++ = Active Route, - = Last Active, * = Both
+
+fe80::5202:ff:fe01:0/128
+                   *[Local/0] 23:30:44
+                       Local via fxp0.0
+ff02::2/128        *[INET6/0] 23:30:44
+                       MultiRecv
+
+root@Router1>
+
+root@Router1>
+
+root@Router1> show route table inet.3
+
+inet.3: 5 destinations, 6 routes (5 active, 0 holddown, 0 hidden)
++ = Active Route, - = Last Active, * = Both
+
+10.0.0.2/32        *[L-ISIS/14] 22:34:53, metric 10
+                    >  to 10.10.2.2 via ge-0/0/0.0, Push 0
+                       to 10.10.3.2 via ge-0/0/1.0, Push 800002, Push 800004(top)
+10.0.0.3/32        *[L-ISIS/14] 22:34:53, metric 10
+                    >  to 10.10.3.2 via ge-0/0/1.0, Push 0
+                       to 10.10.2.2 via ge-0/0/0.0, Push 800003, Push 800004(top)
+10.0.0.4/32        *[L-ISIS/14] 22:34:53, metric 20
+                       to 10.10.2.2 via ge-0/0/0.0, Push 800004
+                    >  to 10.10.3.2 via ge-0/0/1.0, Push 800004
+10.0.0.5/32        *[L-ISIS/14] 22:34:53, metric 20
+                    >  to 10.10.3.2 via ge-0/0/1.0, Push 800005
+                       to 10.10.2.2 via ge-0/0/0.0, Push 800005, Push 800004(top)
+10.0.0.6/32        *[SPRING-TE/8] 23:29:28, metric 1, metric2 30
+                    >  to 10.10.2.2 via ge-0/0/0.0, Push 800006, Push 800004(top)
+                       to 10.10.3.2 via ge-0/0/1.0, Push 800006, Push 800005(top)
+                    [L-ISIS/14] 22:34:53, metric 30
+                       to 10.10.2.2 via ge-0/0/0.0, Push 800006
+                    >  to 10.10.3.2 via ge-0/0/1.0, Push 800006
+
+root@Router1>
+
+root@Router1>
+
+root@Router1>
+
+root@Router1> show isis database extensive
+IS-IS level 1 link-state database:
+ISIS instance: Default, Routing Instance: master
+
+Router1.00-00 Sequence: 0x70, Checksum: 0x819, Lifetime: 405 secs
+  Node Segment Blocks Advertised:
+    Start Index : 0, Size : 20000, Label-Range: [ 800000, 819999 ]
+
+  Header: LSP ID: Router1.00-00, Length: 88 bytes
+    Allocated length: 1492 bytes, Router ID: 10.0.0.1
+    Remaining lifetime: 405 secs, Level: 1, Interface: 0
+    Estimated free bytes: 1316, Actual free bytes: 1404
+    Aging timer expires in: 405 secs
+    Protocols: IP, IPv6
+
+  Packet: LSP ID: Router1.00-00, Length: 88 bytes, Lifetime : 1200 secs
+    Checksum: 0x819, Sequence: 0x70, Attributes: 0xb <L1 L2 Attached>
+    NLPID: 0x83, Fixed length: 27 bytes, Version: 1, Sysid length: 0 bytes
+    Packet type: 18, Packet version: 1, Max area: 0
+
+  TLVs:
+    Area address: 49 (1)
+    LSP Buffer Size: 1492
+    Speaks: IP
+    Speaks: IPV6
+    IP router id: 10.0.0.1
+    IP address: 10.0.0.1
+    Hostname: Router1
+    Router Capability:  Router ID 10.0.0.1, Flags: 0x00
+      SPRING Capability - Flags: 0xc0(I:1,V:1), Range: 20000, SID-Label: 800000
+      SPRING Algorithm - Algo: 0
+      SPRING Algorithm - Algo: 1
+      Node MSD Advertisement Sub-TLV:Type:  23, Length: 4
+        Base MPLS Imposition MSD:Type:  1, Value: 0
+        Entropy Readable Label Depth MSD:Type:  2, Value: 16
+  No queued transmissions
+
+IS-IS level 2 link-state database:
+ISIS instance: Default, Routing Instance: master
+
+Router1.00-00 Sequence: 0x75, Checksum: 0xb032, Lifetime: 947 secs
+  IPV4 Index: 1
+  Node Segment Blocks Advertised:
+    Start Index : 0, Size : 20000, Label-Range: [ 800000, 819999 ]
+   IS neighbor: Router2.00                    Metric:       10
+     Two-way fragment: Router2.00-00, Two-way first fragment: Router2.00-00
+     P2P IPv4 Adj-SID:      18, Weight:   0, Flags: -BVL--
+   IS neighbor: Router3.00                    Metric:       10
+     Two-way fragment: Router3.00-00, Two-way first fragment: Router3.00-00
+     P2P IPv4 Adj-SID:      17, Weight:   0, Flags: -BVL--
+   IP prefix: 10.0.0.1/32                     Metric:        0 Internal Up
+   IP prefix: 10.10.2.0/30                    Metric:       10 Internal Up
+   IP prefix: 10.10.3.0/30                    Metric:       10 Internal Up
+
+  Header: LSP ID: Router1.00-00, Length: 216 bytes
+    Allocated length: 1492 bytes, Router ID: 10.0.0.1
+    Remaining lifetime: 947 secs, Level: 2, Interface: 0
+    Estimated free bytes: 1120, Actual free bytes: 1276
+    Aging timer expires in: 947 secs
+    Protocols: IP, IPv6
+
+  Packet: LSP ID: Router1.00-00, Length: 216 bytes, Lifetime : 1198 secs
+    Checksum: 0xb032, Sequence: 0x75, Attributes: 0x3 <L1 L2>
+    NLPID: 0x83, Fixed length: 27 bytes, Version: 1, Sysid length: 0 bytes
+    Packet type: 20, Packet version: 1, Max area: 0
+
+  TLVs:
+    Area address: 49 (1)
+    LSP Buffer Size: 1492
+    Speaks: IP
+    Speaks: IPV6
+    IP router id: 10.0.0.1
+    IP address: 10.0.0.1
+    Hostname: Router1
+    IP extended prefix: 10.0.0.1/32 metric 0 up
+      8 bytes of subtlvs
+      Node SID, Flags: 0x70(R:0,N:1,P:1,E:1,V:0,L:0), Algo: SPF(0), Value: 1
+    IP extended prefix: 10.10.2.0/30 metric 10 up
+    IP extended prefix: 10.10.3.0/30 metric 10 up
+    Router Capability:  Router ID 10.0.0.1, Flags: 0x00
+      SPRING Capability - Flags: 0xc0(I:1,V:1), Range: 20000, SID-Label: 800000
+      SPRING Algorithm - Algo: 0
+      SPRING Algorithm - Algo: 1
+      Node MSD Advertisement Sub-TLV:Type:  23, Length: 4
+        Base MPLS Imposition MSD:Type:  1, Value: 3
+        Entropy Readable Label Depth MSD:Type:  2, Value: 16
+    Extended IS Reachability TLV, Type: 22, Length: 88
+    IS extended neighbor: Router3.00, Metric: default 10 SubTLV len: 33
+      IP address: 10.10.3.1
+      Neighbor's IP address: 10.10.3.2
+      Local interface index: 336, Remote interface index: 335
+      Link MSD Advertisement Sub-TLV:Type: 15, Length: 2
+        Base MPLS Imposition MSD:Type: 1, Value: 3
+      P2P IPV4 Adj-SID - Flags:0x70(F:0,B:1,V:1,L:1,S:0,P:0), Weight:0, Label: 17
+      P2P IPv4 Adj-SID:      17, Weight:   0, Flags: -BVL--
+    IS extended neighbor: Router2.00, Metric: default 10 SubTLV len: 33
+      IP address: 10.10.2.1
+      Neighbor's IP address: 10.10.2.2
+      Local interface index: 335, Remote interface index: 333
+      Link MSD Advertisement Sub-TLV:Type: 15, Length: 2
+        Base MPLS Imposition MSD:Type: 1, Value: 3
+      P2P IPV4 Adj-SID - Flags:0x70(F:0,B:1,V:1,L:1,S:0,P:0), Weight:0, Label: 18
+      P2P IPv4 Adj-SID:      18, Weight:   0, Flags: -BVL--
+  No queued transmissions
+
+Router2.00-00 Sequence: 0x78, Checksum: 0xb222, Lifetime: 750 secs
+  IPV4 Index: 2
+  Node Segment Blocks Advertised:
+    Start Index : 0, Size : 20000, Label-Range: [ 800000, 819999 ]
+   IS neighbor: Router1.00                    Metric:       10
+     Two-way fragment: Router1.00-00, Two-way first fragment: Router1.00-00
+     P2P IPv4 Adj-SID:      17, Weight:   0, Flags: -BVL--
+   IS neighbor: Router4.00                    Metric:       10
+     Two-way fragment: Router4.00-00, Two-way first fragment: Router4.00-00
+     P2P IPv4 Adj-SID:      16, Weight:   0, Flags: -BVL--
+   IP prefix: 10.0.0.2/32                     Metric:        0 Internal Up
+   IP prefix: 10.10.2.0/30                    Metric:       10 Internal Up
+   IP prefix: 10.10.4.0/30                    Metric:       10 Internal Up
+
+  Header: LSP ID: Router2.00-00, Length: 218 bytes
+    Allocated length: 284 bytes, Router ID: 10.0.0.2
+    Remaining lifetime: 750 secs, Level: 2, Interface: 335
+    Estimated free bytes: 119, Actual free bytes: 66
+    Aging timer expires in: 750 secs
+    Protocols: IP, IPv6
+
+  Packet: LSP ID: Router2.00-00, Length: 218 bytes, Lifetime : 1196 secs
+    Checksum: 0xb222, Sequence: 0x78, Attributes: 0x3 <L1 L2>
+    NLPID: 0x83, Fixed length: 27 bytes, Version: 1, Sysid length: 0 bytes
+    Packet type: 20, Packet version: 1, Max area: 0
+
+  TLVs:
+    Area address: 49.0001 (3)
+    LSP Buffer Size: 1492
+    Speaks: IP
+    Speaks: IPV6
+    IP router id: 10.0.0.2
+    IP address: 10.0.0.2
+    Hostname: Router2
+    IP extended prefix: 10.0.0.2/32 metric 0 up
+      8 bytes of subtlvs
+      Node SID, Flags: 0x70(R:0,N:1,P:1,E:1,V:0,L:0), Algo: SPF(0), Value: 2
+    IP extended prefix: 10.10.4.0/30 metric 10 up
+    IP extended prefix: 10.10.2.0/30 metric 10 up
+    Router Capability:  Router ID 10.0.0.2, Flags: 0x00
+      SPRING Capability - Flags: 0xc0(I:1,V:1), Range: 20000, SID-Label: 800000
+      SPRING Algorithm - Algo: 0
+      SPRING Algorithm - Algo: 1
+      Node MSD Advertisement Sub-TLV:Type:  23, Length: 4
+        Base MPLS Imposition MSD:Type:  1, Value: 3
+        Entropy Readable Label Depth MSD:Type:  2, Value: 16
+    Extended IS Reachability TLV, Type: 22, Length: 88
+    IS extended neighbor: Router4.00, Metric: default 10 SubTLV len: 33
+      IP address: 10.10.4.1
+      Neighbor's IP address: 10.10.4.2
+      Local interface index: 334, Remote interface index: 335
+      Link MSD Advertisement Sub-TLV:Type: 15, Length: 2
+        Base MPLS Imposition MSD:Type: 1, Value: 3
+      P2P IPV4 Adj-SID - Flags:0x70(F:0,B:1,V:1,L:1,S:0,P:0), Weight:0, Label: 16
+      P2P IPv4 Adj-SID:      16, Weight:   0, Flags: -BVL--
+    IS extended neighbor: Router1.00, Metric: default 10 SubTLV len: 33
+      IP address: 10.10.2.2
+      Neighbor's IP address: 10.10.2.1
+      Local interface index: 333, Remote interface index: 335
+      Link MSD Advertisement Sub-TLV:Type: 15, Length: 2
+        Base MPLS Imposition MSD:Type: 1, Value: 3
+      P2P IPV4 Adj-SID - Flags:0x70(F:0,B:1,V:1,L:1,S:0,P:0), Weight:0, Label: 17
+      P2P IPv4 Adj-SID:      17, Weight:   0, Flags: -BVL--
+  No queued transmissions
+
+Router3.00-00 Sequence: 0x75, Checksum: 0xe680, Lifetime: 981 secs
+  IPV4 Index: 3
+  Node Segment Blocks Advertised:
+    Start Index : 0, Size : 20000, Label-Range: [ 800000, 819999 ]
+   IS neighbor: Router1.00                    Metric:       10
+     Two-way fragment: Router1.00-00, Two-way first fragment: Router1.00-00
+     P2P IPv4 Adj-SID:      16, Weight:   0, Flags: -BVL--
+   IS neighbor: Router4.00                    Metric:       10
+     Two-way fragment: Router4.00-00, Two-way first fragment: Router4.00-00
+     P2P IPv4 Adj-SID:      17, Weight:   0, Flags: -BVL--
+   IS neighbor: Router5.00                    Metric:       10
+     Two-way fragment: Router5.00-00, Two-way first fragment: Router5.00-00
+     P2P IPv4 Adj-SID:      18, Weight:   0, Flags: -BVL--
+   IP prefix: 10.0.0.3/32                     Metric:        0 Internal Up
+   IP prefix: 10.10.3.0/30                    Metric:       10 Internal Up
+   IP prefix: 10.10.5.0/30                    Metric:       10 Internal Up
+   IP prefix: 10.10.8.0/30                    Metric:       10 Internal Up
+
+  Header: LSP ID: Router3.00-00, Length: 271 bytes
+    Allocated length: 284 bytes, Router ID: 10.0.0.3
+    Remaining lifetime: 981 secs, Level: 2, Interface: 336
+    Estimated free bytes: 101, Actual free bytes: 13
+    Aging timer expires in: 981 secs
+    Protocols: IP, IPv6
+
+  Packet: LSP ID: Router3.00-00, Length: 271 bytes, Lifetime : 1196 secs
+    Checksum: 0xe680, Sequence: 0x75, Attributes: 0x3 <L1 L2>
+    NLPID: 0x83, Fixed length: 27 bytes, Version: 1, Sysid length: 0 bytes
+    Packet type: 20, Packet version: 1, Max area: 0
+
+  TLVs:
+    Area address: 49.0001 (3)
+    LSP Buffer Size: 1492
+    Speaks: IP
+    Speaks: IPV6
+    IP router id: 10.0.0.3
+    IP address: 10.0.0.3
+    Hostname: Router3
+    IP extended prefix: 10.0.0.3/32 metric 0 up
+      8 bytes of subtlvs
+      Node SID, Flags: 0x70(R:0,N:1,P:1,E:1,V:0,L:0), Algo: SPF(0), Value: 3
+    IP extended prefix: 10.10.8.0/30 metric 10 up
+    IP extended prefix: 10.10.5.0/30 metric 10 up
+    IP extended prefix: 10.10.3.0/30 metric 10 up
+    Router Capability:  Router ID 10.0.0.3, Flags: 0x00
+      SPRING Capability - Flags: 0xc0(I:1,V:1), Range: 20000, SID-Label: 800000
+      SPRING Algorithm - Algo: 0
+      SPRING Algorithm - Algo: 1
+      Node MSD Advertisement Sub-TLV:Type:  23, Length: 4
+        Base MPLS Imposition MSD:Type:  1, Value: 3
+        Entropy Readable Label Depth MSD:Type:  2, Value: 16
+    Extended IS Reachability TLV, Type: 22, Length: 132
+    IS extended neighbor: Router1.00, Metric: default 10 SubTLV len: 33
+      IP address: 10.10.3.2
+      Neighbor's IP address: 10.10.3.1
+      Local interface index: 335, Remote interface index: 336
+      Link MSD Advertisement Sub-TLV:Type: 15, Length: 2
+        Base MPLS Imposition MSD:Type: 1, Value: 3
+      P2P IPV4 Adj-SID - Flags:0x70(F:0,B:1,V:1,L:1,S:0,P:0), Weight:0, Label: 16
+      P2P IPv4 Adj-SID:      16, Weight:   0, Flags: -BVL--
+    IS extended neighbor: Router4.00, Metric: default 10 SubTLV len: 33
+      IP address: 10.10.8.1
+      Neighbor's IP address: 10.10.8.2
+      Local interface index: 333, Remote interface index: 333
+      Link MSD Advertisement Sub-TLV:Type: 15, Length: 2
+        Base MPLS Imposition MSD:Type: 1, Value: 3
+      P2P IPV4 Adj-SID - Flags:0x70(F:0,B:1,V:1,L:1,S:0,P:0), Weight:0, Label: 17
+      P2P IPv4 Adj-SID:      17, Weight:   0, Flags: -BVL--
+    IS extended neighbor: Router5.00, Metric: default 10 SubTLV len: 33
+      IP address: 10.10.5.1
+      Neighbor's IP address: 10.10.5.2
+      Local interface index: 334, Remote interface index: 335
+      Link MSD Advertisement Sub-TLV:Type: 15, Length: 2
+        Base MPLS Imposition MSD:Type: 1, Value: 3
+      P2P IPV4 Adj-SID - Flags:0x70(F:0,B:1,V:1,L:1,S:0,P:0), Weight:0, Label: 18
+      P2P IPv4 Adj-SID:      18, Weight:   0, Flags: -BVL--
+  No queued transmissions
+
+Router4.00-00 Sequence: 0x74, Checksum: 0x2437, Lifetime: 628 secs
+  IPV4 Index: 4
+  Node Segment Blocks Advertised:
+    Start Index : 0, Size : 20000, Label-Range: [ 800000, 819999 ]
+   IS neighbor: Router2.00                    Metric:       10
+     Two-way fragment: Router2.00-00, Two-way first fragment: Router2.00-00
+     P2P IPv4 Adj-SID:      17, Weight:   0, Flags: -BVL--
+   IS neighbor: Router3.00                    Metric:       10
+     Two-way fragment: Router3.00-00, Two-way first fragment: Router3.00-00
+     P2P IPv4 Adj-SID:      16, Weight:   0, Flags: -BVL--
+   IS neighbor: ROuter6.00                    Metric:       10
+     Two-way fragment: ROuter6.00-00, Two-way first fragment: ROuter6.00-00
+     P2P IPv4 Adj-SID:      18, Weight:   0, Flags: -BVL--
+   IP prefix: 10.0.0.4/32                     Metric:        0 Internal Up
+   IP prefix: 10.10.4.0/30                    Metric:       10 Internal Up
+   IP prefix: 10.10.6.0/30                    Metric:       10 Internal Up
+   IP prefix: 10.10.8.0/30                    Metric:       10 Internal Up
+
+  Header: LSP ID: Router4.00-00, Length: 271 bytes
+    Allocated length: 284 bytes, Router ID: 10.0.0.4
+    Remaining lifetime: 628 secs, Level: 2, Interface: 336
+    Estimated free bytes: 101, Actual free bytes: 13
+    Aging timer expires in: 628 secs
+    Protocols: IP, IPv6
+
+  Packet: LSP ID: Router4.00-00, Length: 271 bytes, Lifetime : 1196 secs
+    Checksum: 0x2437, Sequence: 0x74, Attributes: 0x3 <L1 L2>
+    NLPID: 0x83, Fixed length: 27 bytes, Version: 1, Sysid length: 0 bytes
+    Packet type: 20, Packet version: 1, Max area: 0
+
+  TLVs:
+    Area address: 49.0001 (3)
+    LSP Buffer Size: 1492
+    Speaks: IP
+    Speaks: IPV6
+    IP router id: 10.0.0.4
+    IP address: 10.0.0.4
+    Hostname: Router4
+    IP extended prefix: 10.0.0.4/32 metric 0 up
+      8 bytes of subtlvs
+      Node SID, Flags: 0x70(R:0,N:1,P:1,E:1,V:0,L:0), Algo: SPF(0), Value: 4
+    IP extended prefix: 10.10.8.0/30 metric 10 up
+    IP extended prefix: 10.10.6.0/30 metric 10 up
+    IP extended prefix: 10.10.4.0/30 metric 10 up
+    Router Capability:  Router ID 10.0.0.4, Flags: 0x00
+      SPRING Capability - Flags: 0xc0(I:1,V:1), Range: 20000, SID-Label: 800000
+      SPRING Algorithm - Algo: 0
+      SPRING Algorithm - Algo: 1
+      Node MSD Advertisement Sub-TLV:Type:  23, Length: 4
+        Base MPLS Imposition MSD:Type:  1, Value: 3
+        Entropy Readable Label Depth MSD:Type:  2, Value: 16
+    Extended IS Reachability TLV, Type: 22, Length: 132
+    IS extended neighbor: Router3.00, Metric: default 10 SubTLV len: 33
+      IP address: 10.10.8.2
+      Neighbor's IP address: 10.10.8.1
+      Local interface index: 333, Remote interface index: 333
+      Link MSD Advertisement Sub-TLV:Type: 15, Length: 2
+        Base MPLS Imposition MSD:Type: 1, Value: 3
+      P2P IPV4 Adj-SID - Flags:0x70(F:0,B:1,V:1,L:1,S:0,P:0), Weight:0, Label: 16
+      P2P IPv4 Adj-SID:      16, Weight:   0, Flags: -BVL--
+    IS extended neighbor: Router2.00, Metric: default 10 SubTLV len: 33
+      IP address: 10.10.4.2
+      Neighbor's IP address: 10.10.4.1
+      Local interface index: 335, Remote interface index: 334
+      Link MSD Advertisement Sub-TLV:Type: 15, Length: 2
+        Base MPLS Imposition MSD:Type: 1, Value: 3
+      P2P IPV4 Adj-SID - Flags:0x70(F:0,B:1,V:1,L:1,S:0,P:0), Weight:0, Label: 17
+      P2P IPv4 Adj-SID:      17, Weight:   0, Flags: -BVL--
+    IS extended neighbor: ROuter6.00, Metric: default 10 SubTLV len: 33
+      IP address: 10.10.6.1
+      Neighbor's IP address: 10.10.6.2
+      Local interface index: 334, Remote interface index: 337
+      Link MSD Advertisement Sub-TLV:Type: 15, Length: 2
+        Base MPLS Imposition MSD:Type: 1, Value: 3
+      P2P IPV4 Adj-SID - Flags:0x70(F:0,B:1,V:1,L:1,S:0,P:0), Weight:0, Label: 18
+      P2P IPv4 Adj-SID:      18, Weight:   0, Flags: -BVL--
+  No queued transmissions
+
+Router5.00-00 Sequence: 0x72, Checksum: 0xf6b9, Lifetime: 642 secs
+  IPV4 Index: 5
+  Node Segment Blocks Advertised:
+    Start Index : 0, Size : 20000, Label-Range: [ 800000, 819999 ]
+   IS neighbor: Router3.00                    Metric:       10
+     Two-way fragment: Router3.00-00, Two-way first fragment: Router3.00-00
+     P2P IPv4 Adj-SID:      16, Weight:   0, Flags: -BVL--
+   IS neighbor: ROuter6.00                    Metric:       10
+     Two-way fragment: ROuter6.00-00, Two-way first fragment: ROuter6.00-00
+     P2P IPv4 Adj-SID:      17, Weight:   0, Flags: -BVL--
+   IP prefix: 10.0.0.5/32                     Metric:        0 Internal Up
+   IP prefix: 10.10.5.0/30                    Metric:       10 Internal Up
+   IP prefix: 10.10.7.0/30                    Metric:       10 Internal Up
+
+  Header: LSP ID: Router5.00-00, Length: 218 bytes
+    Allocated length: 284 bytes, Router ID: 10.0.0.5
+    Remaining lifetime: 642 secs, Level: 2, Interface: 336
+    Estimated free bytes: 110, Actual free bytes: 66
+    Aging timer expires in: 642 secs
+    Protocols: IP, IPv6
+
+  Packet: LSP ID: Router5.00-00, Length: 218 bytes, Lifetime : 1194 secs
+    Checksum: 0xf6b9, Sequence: 0x72, Attributes: 0x3 <L1 L2>
+    NLPID: 0x83, Fixed length: 27 bytes, Version: 1, Sysid length: 0 bytes
+    Packet type: 20, Packet version: 1, Max area: 0
+
+  TLVs:
+    Area address: 49.0001 (3)
+    LSP Buffer Size: 1492
+    Speaks: IP
+    Speaks: IPV6
+    IP router id: 10.0.0.5
+    IP address: 10.0.0.5
+    Hostname: Router5
+    IP extended prefix: 10.0.0.5/32 metric 0 up
+      8 bytes of subtlvs
+      Node SID, Flags: 0x70(R:0,N:1,P:1,E:1,V:0,L:0), Algo: SPF(0), Value: 5
+    IP extended prefix: 10.10.5.0/30 metric 10 up
+    IP extended prefix: 10.10.7.0/30 metric 10 up
+    Router Capability:  Router ID 10.0.0.5, Flags: 0x00
+      SPRING Capability - Flags: 0xc0(I:1,V:1), Range: 20000, SID-Label: 800000
+      SPRING Algorithm - Algo: 0
+      SPRING Algorithm - Algo: 1
+      Node MSD Advertisement Sub-TLV:Type:  23, Length: 4
+        Base MPLS Imposition MSD:Type:  1, Value: 3
+        Entropy Readable Label Depth MSD:Type:  2, Value: 16
+    Extended IS Reachability TLV, Type: 22, Length: 88
+    IS extended neighbor: Router3.00, Metric: default 10 SubTLV len: 33
+      IP address: 10.10.5.2
+      Neighbor's IP address: 10.10.5.1
+      Local interface index: 335, Remote interface index: 334
+      Link MSD Advertisement Sub-TLV:Type: 15, Length: 2
+        Base MPLS Imposition MSD:Type: 1, Value: 3
+      P2P IPV4 Adj-SID - Flags:0x70(F:0,B:1,V:1,L:1,S:0,P:0), Weight:0, Label: 16
+      P2P IPv4 Adj-SID:      16, Weight:   0, Flags: -BVL--
+    IS extended neighbor: ROuter6.00, Metric: default 10 SubTLV len: 33
+      IP address: 10.10.7.1
+      Neighbor's IP address: 10.10.7.2
+      Local interface index: 333, Remote interface index: 335
+      Link MSD Advertisement Sub-TLV:Type: 15, Length: 2
+        Base MPLS Imposition MSD:Type: 1, Value: 3
+      P2P IPV4 Adj-SID - Flags:0x70(F:0,B:1,V:1,L:1,S:0,P:0), Weight:0, Label: 17
+      P2P IPv4 Adj-SID:      17, Weight:   0, Flags: -BVL--
+  No queued transmissions
+
+ROuter6.00-00 Sequence: 0x73, Checksum: 0x6958, Lifetime: 1080 secs
+  IPV4 Index: 6
+  Node Segment Blocks Advertised:
+    Start Index : 0, Size : 20000, Label-Range: [ 800000, 819999 ]
+   IS neighbor: Router4.00                    Metric:       10
+     Two-way fragment: Router4.00-00, Two-way first fragment: Router4.00-00
+     P2P IPv4 Adj-SID:      17, Weight:   0, Flags: -BVL--
+   IS neighbor: Router5.00                    Metric:       10
+     Two-way fragment: Router5.00-00, Two-way first fragment: Router5.00-00
+     P2P IPv4 Adj-SID:      18, Weight:   0, Flags: -BVL--
+   IP prefix: 10.0.0.6/32                     Metric:        0 Internal Up
+   IP prefix: 10.10.6.0/30                    Metric:       10 Internal Up
+   IP prefix: 10.10.7.0/30                    Metric:       10 Internal Up
+
+  Header: LSP ID: ROuter6.00-00, Length: 218 bytes
+    Allocated length: 284 bytes, Router ID: 10.0.0.6
+    Remaining lifetime: 1080 secs, Level: 2, Interface: 335
+    Estimated free bytes: 110, Actual free bytes: 66
+    Aging timer expires in: 1080 secs
+    Protocols: IP, IPv6
+
+  Packet: LSP ID: ROuter6.00-00, Length: 218 bytes, Lifetime : 1194 secs
+    Checksum: 0x6958, Sequence: 0x73, Attributes: 0x3 <L1 L2>
+    NLPID: 0x83, Fixed length: 27 bytes, Version: 1, Sysid length: 0 bytes
+    Packet type: 20, Packet version: 1, Max area: 0
+
+  TLVs:
+    Area address: 49.0001 (3)
+    LSP Buffer Size: 1492
+    Speaks: IP
+    Speaks: IPV6
+    IP router id: 10.0.0.6
+    IP address: 10.0.0.6
+    Hostname: ROuter6
+    IP extended prefix: 10.0.0.6/32 metric 0 up
+      8 bytes of subtlvs
+      Node SID, Flags: 0x70(R:0,N:1,P:1,E:1,V:0,L:0), Algo: SPF(0), Value: 6
+    IP extended prefix: 10.10.7.0/30 metric 10 up
+    IP extended prefix: 10.10.6.0/30 metric 10 up
+    Router Capability:  Router ID 10.0.0.6, Flags: 0x00
+      SPRING Capability - Flags: 0xc0(I:1,V:1), Range: 20000, SID-Label: 800000
+      SPRING Algorithm - Algo: 0
+      SPRING Algorithm - Algo: 1
+      Node MSD Advertisement Sub-TLV:Type:  23, Length: 4
+        Base MPLS Imposition MSD:Type:  1, Value: 3
+        Entropy Readable Label Depth MSD:Type:  2, Value: 16
+    Extended IS Reachability TLV, Type: 22, Length: 88
+    IS extended neighbor: Router4.00, Metric: default 10 SubTLV len: 33
+      IP address: 10.10.6.2
+      Neighbor's IP address: 10.10.6.1
+      Local interface index: 337, Remote interface index: 334
+      Link MSD Advertisement Sub-TLV:Type: 15, Length: 2
+        Base MPLS Imposition MSD:Type: 1, Value: 3
+      P2P IPV4 Adj-SID - Flags:0x70(F:0,B:1,V:1,L:1,S:0,P:0), Weight:0, Label: 17
+      P2P IPv4 Adj-SID:      17, Weight:   0, Flags: -BVL--
+    IS extended neighbor: Router5.00, Metric: default 10 SubTLV len: 33
+      IP address: 10.10.7.2
+      Neighbor's IP address: 10.10.7.1
+      Local interface index: 335, Remote interface index: 333
+      Link MSD Advertisement Sub-TLV:Type: 15, Length: 2
+        Base MPLS Imposition MSD:Type: 1, Value: 3
+      P2P IPV4 Adj-SID - Flags:0x70(F:0,B:1,V:1,L:1,S:0,P:0), Weight:0, Label: 18
+      P2P IPv4 Adj-SID:      18, Weight:   0, Flags: -BVL--
+  No queued transmissions
+
+root@Router1>
+
+root@Router1>
+
+root@Router1>
+
+root@Router1> show isis adjacency
+Interface             System         L State         Hold (secs) SNPA
+ge-0/0/0.0            Router2        2  Up                    20
+ge-0/0/1.0            Router3        2  Up                    26
+
+root@Router1>
+
+root@Router1>
+
+root@Router1> show mpls forwarding-table
+                        ^
+syntax error, expecting <command>.
+
+root@Router1> show mpls ?
+Possible completions:
+  abstract-hop-membership  Show MPLS abstract hop membership tables
+  admin-groups         Show MPLS administrative groups
+  admin-groups-extended  Show MPLS extended administrative groups
+  association          Show MPLS LSPs based on association
+  call-admission-control  Show CAC information for MPLS LSPs
+  container-lsp        Show configured container-label-switched paths
+  context-identifier   Show configured egress protection context identifiers
+  correlation          Show correlation information for MPLS LSPs
+  cspf                 Show Constrained Shortest Path First statistics
+  diffserv-te          Show MPLS Differentiated Services traffic engineering global properties
+  egress-protection    Show egress-protection information
+  interface            Show MPLS interfaces
+  label                Mpls label space
+  lsp                  Show configured label-switched paths
+  path                 Show configured named paths
+  srlg                 Show MPLS SRLG
+  static-lsp           Show configured static label-switched paths
+  traceroute           Show mpls traceroute information
+  tunnel-manager-statistics  Show Multiprotocol Label Switching manager statistics
+root@Router1> show mpls static-lsp
+Ingress LSPs:
+Total 0, displayed 0, Up 0, Down 0
+
+Transit LSPs:
+Total 0, displayed 0, Up 0, Down 0
+
+Bypass LSPs:
+Total 0, displayed 0, Up 0, Down 0
+
+Segment LSPs:
+Total 0, displayed 0, Up 0, Down 0
+
+root@Router1>
+
+root@Router1>
+
+root@Router1> show source-packet-routing
+                   ^
+syntax error, expecting <command>.
+
+root@Router1> show so
+                   ^
+syntax error, expecting <command>.
+root@Router1> show spring-traffic-engineering lsp
+To                        State        LSPname
+10.0.0.6                  Up           R1_TO_R6_SRTE
+
+
+Total displayed LSPs: 1 (Up: 1, Down: 0, Initializing: 0)
+
+root@Router1>
+
+root@Router1>
+
+root@Router1> show interfaces terse
+Interface               Admin Link Proto    Local                 Remote
+ge-0/0/0                up    up
+ge-0/0/0.0              up    up   inet     10.10.2.1/30
+                                   iso
+                                   mpls
+                                   multiservice
+lc-0/0/0                up    up
+lc-0/0/0.32769          up    up   vpls
+pfe-0/0/0               up    up
+pfe-0/0/0.16383         up    up   inet
+                                   inet6
+pfh-0/0/0               up    up
+pfh-0/0/0.16383         up    up   inet
+pfh-0/0/0.16384         up    up   inet
+ge-0/0/1                up    up
+ge-0/0/1.0              up    up   inet     10.10.3.1/30
+                                   iso
+                                   mpls
+                                   multiservice
+ge-0/0/2                up    up
+ge-0/0/2.0              up    up   inet     10.10.1.2/30
+                                   multiservice
+ge-0/0/3                up    down
+ge-0/0/3.16386          up    down
+ge-0/0/4                up    down
+ge-0/0/4.16386          up    down
+ge-0/0/5                up    down
+ge-0/0/5.16386          up    down
+ge-0/0/6                up    down
+ge-0/0/6.16386          up    down
+ge-0/0/7                up    down
+ge-0/0/7.16386          up    down
+ge-0/0/8                up    down
+ge-0/0/8.16386          up    down
+ge-0/0/9                up    down
+ge-0/0/9.16386          up    down
+cbp0                    up    up
+demux0                  up    up
+demux1                  up    up
+dsc                     up    up
+em1                     up    up
+em1.0                   up    up   inet     10.0.0.4/8
+                                            128.0.0.1/2
+                                            128.0.0.4/2
+                                   inet6    fe80::5254:ff:fe12:bdfe/64
+                                            fec0::a:0:0:4/64
+                                   tnp      0x4
+esi                     up    up
+fti0                    up    up
+fti1                    up    up
+fti2                    up    up
+fti3                    up    up
+fti4                    up    up
+fti5                    up    up
+fti6                    up    up
+fti7                    up    up
+fxp0                    up    up
+fxp0.0                  up    up   inet
+                                   inet6    fe80::5202:ff:fe01:0/64
+gre                     up    up
+ipip                    up    up
+irb                     up    up
+jsrv                    up    up
+jsrv.1                  up    up   inet     128.0.0.127/2
+lo0                     up    up
+lo0.0                   up    up   inet     10.0.0.1            --> 0/0
+                                   iso      49.0001.0100.0001
+lo0.16384               up    up   inet     127.0.0.1           --> 0/0
+lo0.16385               up    up   inet
+lsi                     up    up
+lsi.0                   up    up   inet
+                                   iso
+                                   inet6
+mif                     up    up
+mtun                    up    up
+pimd                    up    up
+pime                    up    up
+pip0                    up    up
+pp0                     up    up
+rbeb                    up    up
+tap                     up    up
+vtep                    up    up
+
+root@Router1>
+
+@Router1> show route 203.0.113.0/24 detail
+
+CUSTOMER_A.inet.0: 5 destinations, 5 routes (5 active, 0 holddown, 0 hidden)
+203.0.113.0/24 (1 entry, 1 announced)
+        *BGP    Preference: 170/-101
+                Route Distinguisher: 10.0.0.6:65000
+                Next hop type: Indirect, Next hop index: 0
+                Address: 0x84a1794
+                Next-hop reference count: 6
+                Kernel Table Id: 0
+                Source: 10.0.0.6
+                Next hop type: Router, Next hop index: 0
+                Next hop: 10.10.2.2 via ge-0/0/0.0 weight 0x1, selected
+                Label operation: Push 16, Push 800006, Push 800004(top)
+                Label TTL action: prop-ttl, prop-ttl, prop-ttl(top)
+                Load balance label: Label 16: None; Label 800006: None; Label 800004: None;
+                Label element ptr: 0xe15fa58
+                Label parent element ptr: 0xe15ebd0
+                Label element references: 2
+                Label element child references: 0
+                Label element lsp id: 0
+                Session Id: 0
+                Next hop: 10.10.3.2 via ge-0/0/1.0 weight 0xff
+                Label operation: Push 16, Push 800006, Push 800005(top)
+                Label TTL action: prop-ttl, prop-ttl, prop-ttl(top)
+                Load balance label: Label 16: None; Label 800006: None; Label 800005: None;
+                Label element ptr: 0xe15f9b8
+                Label parent element ptr: 0xe15ec98
+                Label element references: 2
+                Label element child references: 0
+                Label element lsp id: 0
+                Session Id: 0
+                Protocol next hop: 10.0.0.6
+                Label operation: Push 16
+                Label TTL action: prop-ttl
+                Load balance label: Label 16: None;
+                Indirect next hop: 0x84ddd50 1048577 INH Session ID: 325
+                Indirect next hop: INH non-key opaque: 0x0 INH key opaque: 0x0
+                State: <Secondary Active Int Ext ProtectionCand>
+                Local AS: 65000 Peer AS: 65000
+                Age: 22:44:15   Metric2: 1
+                Validation State: unverified
+                Task: BGP_65000.10.0.0.6
+                Announcement bits (2): 0-KRT 1-BGP_RT_Background
+                AS path: 65100 I
+                Communities: target:65000:1
+                Import Accepted
+                VPN Label: 16
+                Localpref: 100
+                Router ID: 10.0.0.6
+                Primary Routing Table: bgp.l3vpn.0
+                Thread: junos-main
+
+bgp.l3vpn.0: 2 destinations, 2 routes (2 active, 0 holddown, 0 hidden)
+
+10.0.0.6:65000:203.0.113.0/24 (1 entry, 0 announced)
+        *BGP    Preference: 170/-101
+                Route Distinguisher: 10.0.0.6:65000
+                Next hop type: Indirect, Next hop index: 0
+                Address: 0x84a1794
+                Next-hop reference count: 6
+                Kernel Table Id: 0
+                Source: 10.0.0.6
+                Next hop type: Router, Next hop index: 0
+                Next hop: 10.10.2.2 via ge-0/0/0.0 weight 0x1, selected
+                Label operation: Push 16, Push 800006, Push 800004(top)
+                Label TTL action: prop-ttl, prop-ttl, prop-ttl(top)
+                Load balance label: Label 16: None; Label 800006: None; Label 800004: None;
+                Label element ptr: 0xe15fa58
+                Label parent element ptr: 0xe15ebd0
+                Label element references: 2
+                Label element child references: 0
+                Label element lsp id: 0
+                Session Id: 0
+                Next hop: 10.10.3.2 via ge-0/0/1.0 weight 0xff
+                Label operation: Push 16, Push 800006, Push 800005(top)
+                Label TTL action: prop-ttl, prop-ttl, prop-ttl(top)
+                Load balance label: Label 16: None; Label 800006: None; Label 800005: None;
+                Label element ptr: 0xe15f9b8
+                Label parent element ptr: 0xe15ec98
+                Label element references: 2
+                Label element child references: 0
+                Label element lsp id: 0
+                Session Id: 0
+                Protocol next hop: 10.0.0.6
+                Label operation: Push 16
+                Label TTL action: prop-ttl
+                Load balance label: Label 16: None;
+                Indirect next hop: 0x84ddd50 1048577 INH Session ID: 325
+                Indirect next hop: INH non-key opaque: 0x0 INH key opaque: 0x0
+                State: <Active Int Ext ProtectionPath ProtectionCand>
+                Local AS: 65000 Peer AS: 65000
+                Age: 22:44:15   Metric2: 1
+                Validation State: unverified
+                Task: BGP_65000.10.0.0.6
+                AS path: 65100 I
+                Communities: target:65000:1
+                Import Accepted
+                VPN Label: 16
+                Localpref: 100
+                Router ID: 10.0.0.6
+                Secondary Tables: CUSTOMER_A.inet.0
+                Thread: junos-main
+

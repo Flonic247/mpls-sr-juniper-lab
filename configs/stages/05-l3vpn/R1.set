@@ -1,0 +1,25 @@
+# R1 - stage 05-l3vpn
+set policy-options policy-statement Customer_A_Export term 1 then community add RT_CE01
+set policy-options policy-statement Customer_A_Export term 1 then accept
+set policy-options policy-statement Cutomer_A_Import term 1 from protocol bgp
+set policy-options policy-statement Cutomer_A_Import term 1 from protocol direct
+set policy-options policy-statement Cutomer_A_Import term 1 from community RT_CE01
+set policy-options policy-statement Cutomer_A_Import term 1 then accept
+set policy-options community RT_CE01 members target:65000:1
+set routing-instances CUSTOMER_A instance-type vrf
+set routing-instances CUSTOMER_A protocols bgp group Customer_A type external
+set routing-instances CUSTOMER_A protocols bgp group Customer_A local-address 10.10.1.2
+set routing-instances CUSTOMER_A protocols bgp group Customer_A peer-as 65100
+set routing-instances CUSTOMER_A protocols bgp group Customer_A local-as 65000
+set routing-instances CUSTOMER_A protocols bgp group Customer_A as-override
+set routing-instances CUSTOMER_A protocols bgp group Customer_A neighbor 10.10.1.1
+set routing-instances CUSTOMER_A interface ge-0/0/2.0
+set routing-instances CUSTOMER_A route-distinguisher 10.0.0.1:65000
+set routing-instances CUSTOMER_A vrf-import Cutomer_A_Import
+set routing-instances CUSTOMER_A vrf-export Customer_A_Export
+set routing-instances CUSTOMER_A vrf-target target:65000:100
+set routing-instances CUSTOMER_A vrf-table-label
+set protocols bgp group L3VPN type internal
+set protocols bgp group L3VPN local-address 10.0.0.1
+set protocols bgp group L3VPN family inet-vpn unicast
+set protocols bgp group L3VPN neighbor 10.0.0.6
